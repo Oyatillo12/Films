@@ -11,7 +11,7 @@ function NowPlaying() {
   }, [])
 
   return (
-    <div className='mt-10 flex flex-wrap justify-between gap-5  p-4'>
+    <div className='mt-10 flex flex-wrap justify-between gap-5 p-4'>
       {data.map(item => <CustomCard key={item.id} item={item}/>)}
     </div>
   )

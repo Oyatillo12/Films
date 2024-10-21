@@ -7,11 +7,13 @@ import Button from '@mui/material/Button';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardActions from '@mui/material/CardActions';
 import { IMG_URL } from '../hooks/useEnv';
+import { useNavigate } from 'react-router-dom';
 
 export default function CustomCard({ item }) {
+   const navigate = useNavigate()
   return (
-    <Card className='!bg-[rgb(23,35,52)] !text-white' sx={{ maxWidth: 345 }}>
-      <CardActionArea>
+    <Card  className='!bg-[rgb(23,35,52)] !text-white' sx={{ maxWidth: 345 }}>
+      <CardActionArea onClick={() => navigate(`${item.id}`)}>
         <CardMedia
           className='!h-[350px] !w-[350px] !object-cover'
           component="img"
@@ -27,7 +29,7 @@ export default function CustomCard({ item }) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button onClick={() => navigate(`${item.id}`)} size="small" color="primary">
           More
         </Button>
       </CardActions>
