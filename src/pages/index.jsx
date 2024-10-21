@@ -3,5 +3,6 @@ import Popular from './Popular';
 import TopRated from './TopRated';
 import UpComing from './UpComing';
 import FilmsSinglePage   from './FilmSinglePage'
+import SearchPage   from './SearchPage'
 
-export {FilmsSinglePage,NowPlaying, TopRated, UpComing, Popular}
+export {SearchPage,FilmsSinglePage,NowPlaying, TopRated, UpComing, Popular}

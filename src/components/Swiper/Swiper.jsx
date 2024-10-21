@@ -28,10 +28,10 @@ export default function CustomSwiper({ data }) {
         modules={[Autoplay]}
 
       >
-        {data.map(item => (
+        {data && data.map(item => (
           <SwiperSlide key={item.id}>
 
-            <img src={`${IMG_URL}${item.poster_path}`} alt={item.title + "img"} />
+            <img src={`${IMG_URL}${item.backdrop_path}`} alt={item.title + "img"} />
             <div className="swiper-slide p-5">
               <strong className='text-white mt-10 block text-2xl mb-3'>{item.title}</strong>
               <p className='w-[500px] text-lg text-white line-clamp-3 mb-5'>{item.overview}</p>

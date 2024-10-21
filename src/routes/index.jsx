@@ -2,7 +2,7 @@ import React, { lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import {PATH} from '../hooks/usePath'
 import Loading from '../assets/images/loading.png'
-import {FilmsSinglePage} from '../pages'
+import {FilmsSinglePage, SearchPage} from '../pages'
 
 const NowPlaying = lazy(() => new Promise(resolve =>{
   return setTimeout(() => resolve(import('../pages/NowPlaying')), 1000)
@@ -15,6 +15,9 @@ const TopRated = lazy(() => new Promise(resolve =>{
 }))
 const UpComing = lazy(() => new Promise(resolve =>{
   return setTimeout(() => resolve(import('../pages/UpComing')), 1000)
+}))
+const Liked = lazy(() => new Promise(resolve =>{
+  return setTimeout(() => resolve(import('../pages/Liked')), 1000)
 }))
 
 function CustomRoutes() {
@@ -44,6 +47,8 @@ function CustomRoutes() {
     <Routes>
       {routesList.map(item => (<Route key={item.id} path={item.path} element={item.element}/>))}
       {routesList.map(item => (<Route key={item.id} path={`${item.path}/:id`} element={<FilmsSinglePage/>}/>))}
+      <Route  path={`search/:name`} element={<SearchPage/>}/>
+      {routesList.map(item => <Route key={item.id} path={`${item.path}/movies/liked`} element={<Suspense fallback={<img className='absolute inset-0 m-auto' src={Loading} alt='loading' width={100} height={100}/>}> <Liked/> </Suspense>} />)}
     </Routes>
   )
 }

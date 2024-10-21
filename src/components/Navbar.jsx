@@ -20,9 +20,9 @@ import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import MoveToInboxIcon from '@mui/icons-material/MoveToInbox';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { PATH } from '../hooks/usePath';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
-import useDebounce from '../hooks/useDebounce';
+import { useSelector } from 'react-redux';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -67,6 +67,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 export default function Navbar() {
+  const navigate = useNavigate()
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -112,12 +113,7 @@ export default function Navbar() {
     </Menu>
   );
 
-  // const [search,setSearch] = React.useState('')
-  // const searcWaiting = useDebounce(search, 700)
 
-  // function handleSearchChange(e){
-  //   setSearch(e.target.value);
-  // }
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
     <Menu
@@ -190,11 +186,27 @@ export default function Navbar() {
     },
     {
       id: 4,
-      path: PATH.nowPlaying,
+      path: PATH.upcoming,
       title: 'Up Coming',
       icon: <MoveToInboxIcon />
     }
   ]
+  const liked = useSelector(state => state.liked) 
+  const [searchValue, setSearchValue] = React.useState('')
+
+  function handleSearchSubmit(e) {
+    e.preventDefault();
+    navigate(`search/${searchValue}`)
+  }
+
+  function handleSearchChanged(e) {
+    if (e.target.value !== '') {
+      setSearchValue(e.target.value)
+    } else {
+      navigate('/')
+    }
+  }
+
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -222,27 +234,29 @@ export default function Navbar() {
 
 
           <Box sx={{ flexFlow: 1 }} />
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
+          <form autoComplete='off' onSubmit={handleSearchSubmit}>
+            <Search>
+              <SearchIconWrapper >
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase onChange={handleSearchChanged}
+                placeholder="Search…"
+                inputProps={{ 'aria-label': 'search' }}
+              />
+            </Search>
+          </form>
           <Box sx={{ display: 'flex' }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="error">
                 <ShoppingBasketIcon />
               </Badge>
-            </IconButton>
-            <IconButton
+            </IconButton >
+            <IconButton onClick={() => navigate('movies/liked')}
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
             >
-              <Badge badgeContent={17} color="error">
+              <Badge badgeContent={liked?.length} color="error">
                 <FavoriteIcon />
               </Badge>
             </IconButton>
