@@ -21,7 +21,7 @@ export default function HomeCard({ item }) {
   const navigate = useNavigate();
   const [data, setData] = useState([])
   const user = JSON.parse(localStorage.getItem('user'))
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(true)
 
   useEffect(() => {
     useAxios().get(`movie/${item.fetching}?language=en-US&page=1&api_key=${API_KEY}`).then(res => {
@@ -39,14 +39,17 @@ export default function HomeCard({ item }) {
   };
   return (
     <>
+      <div>
       <Snackbar
-        className='!mx-auto !mt-[100px]'
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "center"
+           }}
         open={open}
         autoHideDuration={2000}
         onClose={handleClose}
         message="Please Log in to watch this movie"
       />
-      <div>
         <div className='flex relative items-center justify-between pb-[21px] border-b-[2px] border-[#3A3A3A] mb-[30px]'>
           <span className='absolute w-[100px] h-[2px] bg-[#E50914] bottom-[-2px]'></span>
           <h2 className='text-white text-[31px] leading-[37px] font-bold'>{item.title}</h2>
@@ -84,6 +87,7 @@ export default function HomeCard({ item }) {
 
         </Swiper>
       </div>
+
     </>
   );
 }

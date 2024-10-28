@@ -19,7 +19,7 @@ export default function CustomSwiper({ data }) {
 
 
   const handleCLickToSingle = (id) => {
-    user ? navigate(`/movie/${id}`) :setOpen(true);
+    user ? navigate(`/movie/${id}`) : setOpen(true);
   }
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -31,8 +31,11 @@ export default function CustomSwiper({ data }) {
 
   return (
     <>
-    <Snackbar
-        className='!mx-auto !mt-[100px]'
+      <Snackbar
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center"
+        }}
         open={open}
         autoHideDuration={2000}
         onClose={handleClose}

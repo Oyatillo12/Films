@@ -31,7 +31,10 @@ export default function CustomCard({ item }) {
   return (
     <Card className='!bg-[rgb(23,35,52)] !text-white' sx={{ maxWidth: 270 }}>
       <Snackbar
-        className='!mx-auto !mt-[100px]'
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center"
+        }}
         open={open}
         autoHideDuration={2000}
         onClose={handleClose}

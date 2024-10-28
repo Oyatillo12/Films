@@ -55,3 +55,9 @@ iframe {
     background: rgb(80, 23, 148) !important;
     background: linear-gradient(270deg, rgba(80, 23, 148, 1) 0%, rgba(62, 112, 161, 1) 100%) !important;
 }
+
+.MuiSnackbarContent-message{
+    color: white !important;
+    background-color: #333 !important;
+    margin: 0 auto !important;
+}

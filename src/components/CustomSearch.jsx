@@ -48,7 +48,10 @@ export default function CustomSearch() {
   return (
     <>
       <Snackbar
-        className='!mx-auto !mt-[100px]'
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center"
+        }}
         open={open}
         autoHideDuration={2000}
         onClose={handleClose}
