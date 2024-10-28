@@ -55,7 +55,7 @@ function LoginPage() {
                 <h2 className='absolute bottom-10 z-50 left-10 text-[50px] font-extrabold text-white w-[400px]'>SIGN UP <span className='title-login'>TO WATCH MOVIE</span></h2>
             </div>
             <div className='login-wrapper p-10 flex flex-col justify-center h-[100vh]'>
-                <h2 className=' mb-4 text-[77px] font-bold text-white '>SIGN UP</h2>
+                <h2 className=' mb-4 text-[55px] font-bold text-white '>Create Account</h2>
                 <p className='text-[15px] mb-3 font-bold text-white'>Sign up with email address</p>
                 <form onSubmit={handleSubmit} autoComplete='off' className='w-[550px] p-10 flex flex-col'>
                     <input value={userValue} onChange={(e) => setUserValue(e.target.value)} name='user' className='!mb-4 py-4 px-4 rounded-lg text-[18px]  text-white bg-[#261046]' placeholder='New Name' type="text" />
