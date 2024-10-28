@@ -21,7 +21,7 @@ export default function HomeCard({ item }) {
   const navigate = useNavigate();
   const [data, setData] = useState([])
   const user = JSON.parse(localStorage.getItem('user'))
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     useAxios().get(`movie/${item.fetching}?language=en-US&page=1&api_key=${API_KEY}`).then(res => {
