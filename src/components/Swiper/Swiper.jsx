@@ -18,8 +18,7 @@ import toast, { Toaster } from 'react-hot-toast';
 export default function CustomSwiper({ data }) {
   const navigate = useNavigate()
   const user = JSON.parse(localStorage.getItem('user'))
-  console.log("salom");
-  
+    
   const handleCLickToSingle = () => {
     user ? navigate(`/movie/${item.id}`) : toast("Please Log in to watch this movie");
   }

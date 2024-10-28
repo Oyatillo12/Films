@@ -16,24 +16,26 @@ export default function CustomSearch() {
   }
 
   React.useEffect(() => {
-    useAxios().get("/search/movie", { params: { query: seerchWaiting, } }).then(res => {
-      setSearchData(res.data.results.map(item => {
-        const data = {
-          label: item.title,
-          year: item.id
-        }
-        return data;
-      }))
-    })
+    if (searchValue) {
+      useAxios().get("/search/movie", { params: { query: seerchWaiting, } }).then(res => {
+        setSearchData(res.data.results.map(item => {
+          const data = {
+            label: item.title,
+            year: item.id
+          }
+          return data;
+        }))
+      })
+    }
+    
   }, [seerchWaiting])
 
-  console.log(searchData);
-  
+
 
   return (
     <Autocomplete
       onInput={handleInput}
-      onChange={(a,b) => navigate(`/movie/${b.year}`)}
+      onChange={(a, b) => navigate(`/movie/${b.year}`)}
       className='w-[250px] !bg-[#252525e5] !text-white'
       freeSolo
       options={searchData}
