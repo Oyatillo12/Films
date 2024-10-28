@@ -21,8 +21,9 @@ export default function CustomCard({ item }) {
       <CardActionArea onClick={() => navigate(`/movie/${item.id}`)}>
         <div className='w-[270px] !h-[270px] relative'>
           <CardMedia
-            onMouseEnter={() => setChangeImg(true)}
-            onMouseLeave={() => setChangeImg(false)}
+            onMouseEnter={() =>  item.backdrop_path && setChangeImg(true)}
+            onMouseLeave={() => item.backdrop_path && setChangeImg(false)}
+
             className={`!h-full !w-full absolute !object-cover duration-300 ${changeImg ? "left-[-100%]" : "left-0"}`}
             component="img"
             height="140"
@@ -30,8 +31,8 @@ export default function CustomCard({ item }) {
             alt={item.title}
           />
           <CardMedia
-            onMouseEnter={() => setChangeImg(true)}
-            onMouseLeave={() => setChangeImg(false)}
+            onMouseEnter={() => item.backdrop_path &&  setChangeImg(true)}
+            onMouseLeave={() => item.backdrop_path && setChangeImg(false)}
             className={`!h-full !w-full absolute !object-cover duration-300 ${changeImg ? "right-0" : "right-[-100%]"}`}
             component="img"
             height="140"

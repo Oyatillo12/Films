@@ -5,6 +5,7 @@ import { API_KEY, IMG_URL } from '../hooks/useEnv'
 import Loading from '../assets/images/loading.png'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import YouTube from 'react-youtube'
+import EmptyImg from '../assets/images/empty-user.png'
 import { Button } from '@mui/material'
 
 function FilmSinglePage() {
@@ -15,7 +16,6 @@ function FilmSinglePage() {
   const [actors, setActors] = useState([])
   const [loading, setLoading] = useState(true)
   const [selectedTrailer, setSelectedTrailer] = useState({})
-console.log(selectedTrailer);
 
 
   // Get the movie start
@@ -31,8 +31,8 @@ console.log(selectedTrailer);
   useEffect(() => {
     useAxios().get(`/movie/${id}/videos?api_key=${API_KEY}`).then(res => {
       const trailerList = res.data.results.filter(video => video.type === 'Trailer' || video.type === 'Teaser') 
-      setVideos(trailerList.slice(0, 5));
-      setSelectedTrailer(trailerList[0]);
+      setVideos(res.data.results.slice(0, 5));
+      setSelectedTrailer(res.data.results[0]);
     })
   }, [id])
   // get videos end
@@ -40,7 +40,7 @@ console.log(selectedTrailer);
   // get actors start
   useEffect(() => {
     useAxios().get(`/movie/${id}/credits?api_key=${API_KEY}`).then(res => {
-      setActors(res.data.crew.filter(item => item.profile_path).reduce((acc, item) => {
+      setActors(res.data.crew.reduce((acc, item) => {
         if (!acc.some(actor => actor.id === item.id)) {
           acc.push(item)
         }
@@ -51,6 +51,9 @@ console.log(selectedTrailer);
   }, [id])
   // get actors end
 
+  function handleErrorImg(e) {
+    e.target.src = EmptyImg;
+  }
 
   return (
     <div className='w-[1280px] mx-auto mt-[100px]'>
@@ -60,30 +63,31 @@ console.log(selectedTrailer);
       </div>
       {loading ? <img className='absolute inset-0 m-auto' src={Loading} alt='laoding img' width={100} height={100} /> :
         <div>
-          <div className={`flex  space-x-[40px] items-center ${videos.length ? "" : "justify-center"}`}>
-            <img className='rounded-lg' src={`${IMG_URL}${singleData.poster_path}`} alt="movie img" width={320} />
-            <div >
+          <div className={`flex  space-x-[40px] items-start ${videos.length > 0 ? "" : "justify-center"}`}>
+            <img onError={handleErrorImg} className='rounded-lg' src={`${IMG_URL}${singleData.poster_path}`} alt="movie img" width={320} />
+            <div className={`${videos.length > 0 ? "w-[450px]" : ""}`}>
               <h2 className='text-[40px]  text-white font-bold'>{singleData.title}</h2>
               {singleData?.production_companies && singleData?.production_companies.slice(0, 1).map(item => (
                 <div key={item.id} className='flex items-center space-x-2 mt-2'>
-                  <img src={`${IMG_URL}${item.logo_path}`} alt="logo company" width={60} />
+                  {item.logo_path ? <img src={`${IMG_URL}${item.logo_path}`} alt="logo company" width={60} /> : ""}
                   <strong className='text-gray-400 font-normal '>{item.name}</strong>
                 </div>
 
               ))}
-              <div className='flex items-center space-x-6 mt-6'>
+              { singleData.genres.length ? <div className='flex items-center space-x-6 mt-6'>
                 <strong className='text-white text-[20px] leading-[24px] opacity-80'>Genres</strong>
                 {singleData?.genres ? singleData?.genres.slice(0, 3).map(item => (
                   <strong key={item.id} className='px-2 py-1 rounded-3xl block bg-[#00000033] text-gray-400 font-normal'>{item.name}</strong>
                 )) : ""}
-              </div>
+              </div> : null}
               <p className='text-[16px] leading-[22px] text-white opacity-70 mt-3 line-clamp-5'>{singleData.overview}</p>
-              <div className='space-x-4 mt-3'>
+
+             {singleData?.production_countries.length ? <div className='space-x-4 mt-3'>
                 <strong className='text-white text-[20px] leading-[24px] opacity-80'>Country</strong>
                 {singleData?.production_countries ? singleData?.production_countries.map(item => (
                   <strong key={item.id} className='px-2 py-1 inline-block rounded-3xl bg-[#00000033] text-gray-400 font-normal'>{item.name}</strong>
                 )) : ""}
-              </div>
+              </div> : null}
               <div className='space-x-4 '>
                 <strong className='text-white text-[20px] leading-[24px] opacity-80'>Spoken languages </strong>
                 {singleData?.spoken_languages ? singleData?.spoken_languages.map(item => (
@@ -98,7 +102,7 @@ console.log(selectedTrailer);
                 <strong className='text-white opacity-90 text-[25px] block mb-2'>Watch Trailers</strong>
                 <div className={`flex flex-wrap-reverse ${videos.length < 4 ? "space-x-4"  : "justify-between"} `}>
                   {videos.map((item,index) => (
-                      <Button  variant='text' className='text-white !capitalize  !bg-[#00000044] opacity-70 !text-[16px] !leading-[20px]' onClick={() => setSelectedTrailer(item)}>Trailer {index +1}</Button>
+                      <Button key={item.id}  variant='text' className='text-white !capitalize  !bg-[#00000044] opacity-70 !text-[16px] !leading-[20px]' onClick={() => setSelectedTrailer(item)}>Trailer {index +1}</Button>
                   ))}
                 </div>
                 <YouTube id={selectedTrailer.id} videoId={selectedTrailer.key} />
