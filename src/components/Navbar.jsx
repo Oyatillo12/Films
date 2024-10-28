@@ -20,9 +20,12 @@ import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import MoveToInboxIcon from '@mui/icons-material/MoveToInbox';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { PATH } from '../hooks/usePath';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
-import { useSelector } from 'react-redux';
+import LogoImg from '../assets/images/nav-logo.svg';
+import HomeIcon from '@mui/icons-material/Home';
+import CustomSearch from './CustomSearch';
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -54,7 +57,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
     width: '100%',
@@ -67,7 +69,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 export default function Navbar() {
-  const navigate = useNavigate()
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -168,50 +169,43 @@ export default function Navbar() {
   const navbarList = [
     {
       id: 1,
+      path: PATH.home,
+      title: 'Home',
+      icon: <HomeIcon />
+    },
+    {
+      id: 2,
       path: PATH.nowPlaying,
       title: 'Now Playing',
       icon: <PlayCircleIcon />
     },
     {
-      id: 2,
+      id: 3,
       path: PATH.popular,
       title: 'Popular',
       icon: <StarRateIcon />
     },
     {
-      id: 3,
+      id: 4,
       path: PATH.topRated,
       title: 'Top Rated',
       icon: <TrendingUpIcon />
     },
     {
-      id: 4,
+      id: 5,
       path: PATH.upcoming,
       title: 'Up Coming',
       icon: <MoveToInboxIcon />
     }
   ]
-  const liked = useSelector(state => state.liked) 
-  const [searchValue, setSearchValue] = React.useState('')
 
-  function handleSearchSubmit(e) {
-    e.preventDefault();
-    navigate(`search/${searchValue}`)
-  }
 
-  function handleSearchChanged(e) {
-    if (e.target.value !== '') {
-      setSearchValue(e.target.value)
-    } else {
-      navigate('/')
-    }
-  }
 
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar className='flex !bg-[#1E3E62] justify-between items-center'>
+    <Box className='' sx={{ flexGrow: 1 }}>
+      <AppBar className='!max-w-[1280px] !w-full !mx-auto !backdrop-blur-[5px] !inset-x-0 !top-6  !rounded-md' position="fixed">
+        <Toolbar className='flex !bg-[#151515E5] py-[10px] !rounded-md !backdrop-blur-[5px] justify-between items-center'>
           <IconButton
             className='sm:!hidden'
             size="large"
@@ -222,9 +216,9 @@ export default function Navbar() {
           >
             <MenuIcon />
           </IconButton>
-          <h2 className='text-[30px] text-white mr-6 font-bold'>Films</h2>
+          <img src={LogoImg} alt="logo img" width={154} height={22} />
           <Typography
-            className='flex space-x-10 items-center'
+            className='flex space-x-8 items-center'
             variant="h6"
             noWrap
             component="div"
@@ -233,33 +227,24 @@ export default function Navbar() {
           </Typography>
 
 
-          <Box sx={{ flexFlow: 1 }} />
-          <form autoComplete='off' onSubmit={handleSearchSubmit}>
-            <Search>
-              <SearchIconWrapper >
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase onChange={handleSearchChanged}
-                placeholder="Search…"
-                inputProps={{ 'aria-label': 'search' }}
-              />
-            </Search>
-          </form>
-          <Box sx={{ display: 'flex' }}>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="error">
-                <ShoppingBasketIcon />
-              </Badge>
-            </IconButton >
-            <IconButton onClick={() => navigate('movies/liked')}
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={liked?.length} color="error">
-                <FavoriteIcon />
-              </Badge>
-            </IconButton>
+          <Box className='flex space-x-4' sx={{ flexFlow: 1 }} >
+            <CustomSearch />
+            <Box sx={{ display: 'flex' }}>
+              <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+                <Badge badgeContent={4} color="error">
+                  <ShoppingBasketIcon />
+                </Badge>
+              </IconButton >
+              <IconButton onClick={() => navigate('movies/liked')}
+                size="large"
+                aria-label="show 17 new notifications"
+                color="inherit"
+              >
+                <Badge badgeContent={4} color="error">
+                  <FavoriteIcon />
+                </Badge>
+              </IconButton>
+            </Box>
           </Box>
         </Toolbar>
       </AppBar>

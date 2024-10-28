@@ -1,30 +1,9 @@
-import React, { useEffect } from 'react'
-import { useAxios } from '../hooks/useAxios'
-import { API_KEY } from '../hooks/useEnv'
-import Loading from '../assets/images/loading.png'
-import CustomCard from '../components/CustomCard'
-import CustomSwiper from '../components/Swiper/Swiper'
-import { useDispatch, useSelector } from 'react-redux'
-import { ACTION } from '../redux/actions'
+import React from 'react'
+import MoviePage from '../components/MoviPage'
+
 
 function UpComing() {
-  const movies = useSelector(state => state.upComing)
-  const dispatch = useDispatch()
-  useEffect(() => {
-    useAxios().get(`movie/upcoming?language=en-US&page=1&api_key=${API_KEY}`).then(res => {
-      dispatch({ type: ACTION.coming, payload: res.data.results })
-
-    })
-  }, [])
-
-  return (
-    <div>
-      <CustomSwiper data={movies} />
-      <div className='p-4 mt-10  flex flex-wrap justify-between gap-5 '>
-        {movies ? movies?.map(item => <CustomCard key={item.id} item={item} />) : <img className='absolute inset-0 m-auto' src={Loading} alt='loading' width={100} height={100} />}
-      </div>
-    </div>
-  )
+return <MoviePage fetchData={'upcoming'}/>
 }
 
 export default UpComing

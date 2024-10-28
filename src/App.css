@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.active{
+    color: #FF4C4C;
+}
+.MuiButtonBase-root, .MuiPaginationItem-root{
+    color: white !important;
+}
+.swiper-wrapper {
+    margin-bottom: 20px !important; 
+}
+.swiper-pagination-bullet{
+    background-color: #fff !important;
+}
+
+iframe{
+    width: 100%;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+.MuiInputBase-root{
+    color: white !important;
+    background-color: #333 !important;
+    border-color: white !important;
+}
