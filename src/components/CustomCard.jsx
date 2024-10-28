@@ -10,33 +10,37 @@ import { IMG_URL } from '../hooks/useEnv';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useNavigate } from 'react-router-dom';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
-import { Badge, IconButton } from '@mui/material';
-import toast, { Toaster } from 'react-hot-toast';
+import { Badge, IconButton, Snackbar } from '@mui/material';
 
 export default function CustomCard({ item }) {
   const navigate = useNavigate()
   const [changeImg, setChangeImg] = React.useState(false)
   const user = JSON.parse(localStorage.getItem('user'))
+  const [open, setOpen] = React.useState(false)
 
   const handleCLickToSingle = () => {
-    if (!user) {
-      toast("Please Log in to watch this movie",{duration: 2000, });
-    }
-    else{
-      navigate(`/movie/${item.id}`)
-    }
+    user ? navigate(`/movie/${item.id}`) : setOpen(true);
   }
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
 
   return (
     <Card className='!bg-[rgb(23,35,52)] !text-white' sx={{ maxWidth: 270 }}>
-      <Toaster
-        position="top-right"
-        reverseOrder={true}
+      <Snackbar
+        className='!mx-auto !mt-[100px]'
+        open={open}
+        autoHideDuration={2000}
+        onClose={handleClose}
+        message="Please Log in to watch this movie"
       />
       <CardActionArea onClick={handleCLickToSingle}>
         <div className='w-[270px] !h-[270px] relative'>
           <CardMedia
-            onMouseEnter={() =>  item.backdrop_path && setChangeImg(true)}
+            onMouseEnter={() => item.backdrop_path && setChangeImg(true)}
             onMouseLeave={() => item.backdrop_path && setChangeImg(false)}
 
             className={`!h-full !w-full absolute !object-cover duration-300 ${changeImg ? "left-[-100%]" : "left-0"}`}
@@ -46,7 +50,7 @@ export default function CustomCard({ item }) {
             alt={item.title}
           />
           <CardMedia
-            onMouseEnter={() => item.backdrop_path &&  setChangeImg(true)}
+            onMouseEnter={() => item.backdrop_path && setChangeImg(true)}
             onMouseLeave={() => item.backdrop_path && setChangeImg(false)}
             className={`!h-full !w-full absolute !object-cover duration-300 ${changeImg ? "right-0" : "right-[-100%]"}`}
             component="img"

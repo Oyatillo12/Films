@@ -73,8 +73,8 @@ function LoginPage() {
                 <h2 className=' mb-4 text-[77px] font-bold text-white '>SIGN IN</h2>
                 <p className='text-[15px] mb-3 font-bold text-white'>Sign in with email address</p>
                 <form onSubmit={handleSubmit} autoComplete='off' className='w-[550px] p-10 flex flex-col'>
-                    <input value={userValue} onChange={(e) => setUserValue(e.target.value)}  className='!mb-4 py-4 px-4 rounded-lg text-[18px]  text-white bg-[#261046]' placeholder='Username' type="text" />
-                    <input autoComplete='off' value={passwordValue} onChange={(e) => setPasswordValue(e.target.value)}  className='!mb-4 py-4 px-4 rounded-lg text-[18px] text-white bg-[#261046]' placeholder='Password' type="password" />
+                    <input value={userValue} onChange={(e) => setUserValue(e.target.value)} className='!mb-4 py-4 px-4 rounded-lg text-[18px]  text-white bg-[#261046]' placeholder='Username' type="text" />
+                    <input autoComplete='off' value={passwordValue} onChange={(e) => setPasswordValue(e.target.value)} className='!mb-4 py-4 px-4 rounded-lg text-[18px] text-white bg-[#261046]' placeholder='Password' type="password" />
                     <Button className={`submit-btn block font-bold !py-[13px] ${userValue && passwordValue ? "cursor-pointer" : "!cursor-not-allowed opacity-70"}`} variant='contained' type='submit'>{isLoading ? <img className='mx-auto h-[24.5px] scale-[3]' src={LoadingImg} alt="loading" height={24.5} /> : "Submit"}</Button>
                     <p className='text-[20xp] text-center text-white mt-4 '>don’t have an account?  <Link to={'/register'} className='!text-blue-500 '>Create account</Link></p>
                 </form>
