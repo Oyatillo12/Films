@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { PATH } from '../hooks/usePath'
-import { FilmsSinglePage, HomePage,NowPlaying,Popular,TopRated,UpComing } from '../pages'
+import {ProfilePage, FilmsSinglePage, HomePage,LoginPage,NowPlaying,Popular,RegistrPage,TopRated,UpComing } from '../pages'
 
 
 
@@ -38,6 +38,21 @@ function CustomRoutes() {
       id: 6,
       path: PATH.more,
       element: <FilmsSinglePage />
+    },
+    {
+      id: 7,
+      path: PATH.login,
+      element: <LoginPage />
+    },
+    {
+      id: 7,
+      path: PATH.register,
+      element: <RegistrPage />
+    },
+    {
+      id: 8,
+      path: PATH.profile,
+      element: <ProfilePage />
     },
   ]
   return (

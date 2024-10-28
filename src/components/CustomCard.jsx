@@ -11,14 +11,29 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useNavigate } from 'react-router-dom';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { Badge, IconButton } from '@mui/material';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function CustomCard({ item }) {
   const navigate = useNavigate()
   const [changeImg, setChangeImg] = React.useState(false)
+  const user = JSON.parse(localStorage.getItem('user'))
+
+  const handleCLickToSingle = () => {
+    if (!user) {
+      toast("Please Log in to watch this movie",{duration: 2000, });
+    }
+    else{
+      navigate(`/movie/${item.id}`)
+    }
+  }
 
   return (
     <Card className='!bg-[rgb(23,35,52)] !text-white' sx={{ maxWidth: 270 }}>
-      <CardActionArea onClick={() => navigate(`/movie/${item.id}`)}>
+      <Toaster
+        position="top-right"
+        reverseOrder={true}
+      />
+      <CardActionArea onClick={handleCLickToSingle}>
         <div className='w-[270px] !h-[270px] relative'>
           <CardMedia
             onMouseEnter={() =>  item.backdrop_path && setChangeImg(true)}
@@ -48,7 +63,7 @@ export default function CustomCard({ item }) {
         </CardContent>
       </CardActionArea>
       <CardActions className='flex items-center justify-between'>
-        <Button onClick={() => navigate(`/movie/${item.id}`)} size="small" color="primary">
+        <Button onClick={handleCLickToSingle} size="small" color="primary">
           More
         </Button>
         <div className='flex items-center space-x-4'>

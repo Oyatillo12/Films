@@ -4,5 +4,9 @@ export const PATH = {
     popular:'/popular',
     topRated: '/toprated',
     upcoming: '/up-coming',
-    more:'/movie/:id'
+    more:'/movie/:id',
+    login: '/login',
+    register: '/register',
+    profile: '/profile',
+    favorites: '/favorites',
 }

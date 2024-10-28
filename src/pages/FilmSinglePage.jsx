@@ -64,7 +64,7 @@ function FilmSinglePage() {
       {loading ? <img className='absolute inset-0 m-auto' src={Loading} alt='laoding img' width={100} height={100} /> :
         <div>
           <div className={`flex  space-x-[40px] items-start ${videos.length > 0 ? "" : "justify-center"}`}>
-            <img onError={handleErrorImg} className='rounded-lg' src={`${IMG_URL}${singleData.poster_path}`} alt="movie img" width={320} />
+            <img className='rounded-lg' src={`${IMG_URL}${singleData.poster_path}`} alt="movie img" width={320} />
             <div className={`${videos.length > 0 ? "w-[450px]" : ""}`}>
               <h2 className='text-[40px]  text-white font-bold'>{singleData.title}</h2>
               {singleData?.production_companies && singleData?.production_companies.slice(0, 1).map(item => (
@@ -113,7 +113,7 @@ function FilmSinglePage() {
             <div className='flex flex-wrap gap-y-8 justify-between'>
               {actors.map(item => (
                 <div key={item.id} className='bg-[#00000077] overflow-hidden rounded-lg h-[350px] w-[270px] '>
-                  <img className='w-[270px] h-[270px] object-cover rounded-lg ' src={`${IMG_URL}${item.profile_path}`} alt="Profile img" width={270} />
+                  <img onError={handleErrorImg}  className='w-[270px] h-[270px] object-cover rounded-lg ' src={`${IMG_URL}${item.profile_path}`} alt="Profile img" width={270} />
                   <div className='p-4 '>
                     <strong className='text-white opacity-80 text-[18px] leading-[22px]'>{item.name}</strong>
                     <p className='text-[16px] text-white opacity-70 leading-4'>{item.job}</p>

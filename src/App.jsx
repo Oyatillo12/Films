@@ -8,13 +8,13 @@ import { useLocation } from 'react-router-dom'
 
 
 function App() {
-  const {pathname} = useLocation()
+  const { pathname } = useLocation()
+  const path = pathname.includes('login') || pathname.includes('register') || pathname.includes('profile')
   return (
     <>
-    <Navbar />
-      
+      {path? "" : <Navbar />}
       <CustomRoutes />
-      {pathname?.includes('movie') ? "" : <SiteFooter />}
+      {pathname.includes('movie') || path ? "" : <SiteFooter />}
     </>
   )
 }

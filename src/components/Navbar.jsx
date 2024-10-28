@@ -10,7 +10,6 @@ import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications'
@@ -20,11 +19,12 @@ import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import MoveToInboxIcon from '@mui/icons-material/MoveToInbox';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { PATH } from '../hooks/usePath';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import LogoImg from '../assets/images/nav-logo.svg';
 import HomeIcon from '@mui/icons-material/Home';
 import CustomSearch from './CustomSearch';
+import { Button } from '@mui/material';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -198,8 +198,8 @@ export default function Navbar() {
       icon: <MoveToInboxIcon />
     }
   ]
-
-
+  const navigate = useNavigate()
+  const user = JSON.parse(localStorage.getItem('user'))
 
 
   return (
@@ -229,13 +229,14 @@ export default function Navbar() {
 
           <Box className='flex space-x-4' sx={{ flexFlow: 1 }} >
             <CustomSearch />
-            <Box sx={{ display: 'flex' }}>
+
+            {user ? <Box sx={{ display: 'flex', gap: '5px' }}>
               <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                 <Badge badgeContent={4} color="error">
                   <ShoppingBasketIcon />
                 </Badge>
               </IconButton >
-              <IconButton onClick={() => navigate('movies/liked')}
+              <IconButton
                 size="large"
                 aria-label="show 17 new notifications"
                 color="inherit"
@@ -244,7 +245,20 @@ export default function Navbar() {
                   <FavoriteIcon />
                 </Badge>
               </IconButton>
+              <IconButton onClick={() => navigate('/profile')}
+                size="large"
+                aria-label="account of current user"
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+            </Box> :
+            <Box className='flex space-x-2'>
+              <Button onClick={() => navigate('/login')} className='!border-white ' variant='outlined'>Login</Button>
+              <Button onClick={() => navigate('/register')} className='!bg-[#9747FF]'>Sign Up</Button>
             </Box>
+            }
+
           </Box>
         </Toolbar>
       </AppBar>

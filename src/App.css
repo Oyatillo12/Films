@@ -3,28 +3,55 @@
 @tailwind utilities;
 
 
-.active{
+.active {
     color: #FF4C4C;
 }
-.MuiButtonBase-root, .MuiPaginationItem-root{
+
+.MuiButtonBase-root,
+.MuiPaginationItem-root {
     color: white !important;
 }
+
 .swiper-wrapper {
-    margin-bottom: 20px !important; 
+    margin-bottom: 20px !important;
 }
-.swiper-pagination-bullet{
+
+.swiper-pagination-bullet {
     background-color: #fff !important;
 }
 
-iframe{
+iframe {
     width: 100%;
 }
 
 ::-webkit-scrollbar {
     display: none;
 }
-.MuiInputBase-root{
+
+.MuiInputBase-root {
     color: white !important;
     background-color: #333 !important;
     border-color: white !important;
+}
+
+.title-login {
+    background: rgb(80, 23, 148);
+    -webkit-text-fill-color: transparent;
+    background: linear-gradient(0deg, rgba(80, 23, 148, 1) 0%, rgba(174, 105, 255, 1) 100%);
+    -webkit-background-clip: text;
+}
+
+.login-wrapper {
+    background: rgb(22, 4, 48);
+    background: linear-gradient(270deg, rgba(22, 4, 48, 1) 100%, rgba(0, 0, 0, 1) 100%);
+}
+
+.input-login {
+    background: #261046;
+
+}
+
+.submit-btn {
+    background: rgb(80, 23, 148) !important;
+    background: linear-gradient(270deg, rgba(80, 23, 148, 1) 0%, rgba(62, 112, 161, 1) 100%) !important;
 }
