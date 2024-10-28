@@ -60,36 +60,37 @@ console.log(selectedTrailer);
       </div>
       {loading ? <img className='absolute inset-0 m-auto' src={Loading} alt='laoding img' width={100} height={100} /> :
         <div>
-          <div className={`flex space-x-[40px] items-start ${videos.length ? "" : "justify-center"}`}>
-            <img className='rounded-lg' src={`${IMG_URL}${singleData.poster_path}`} alt="movie img" width={300} />
-            <div className='  '>
+          <div className={`flex  space-x-[40px] items-center ${videos.length ? "" : "justify-center"}`}>
+            <img className='rounded-lg' src={`${IMG_URL}${singleData.poster_path}`} alt="movie img" width={320} />
+            <div >
               <h2 className='text-[40px]  text-white font-bold'>{singleData.title}</h2>
               {singleData?.production_companies && singleData?.production_companies.slice(0, 1).map(item => (
                 <div key={item.id} className='flex items-center space-x-2 mt-2'>
-                  <img src={`${IMG_URL}${item.logo_path}`} alt="" width={60} />
+                  <img src={`${IMG_URL}${item.logo_path}`} alt="logo company" width={60} />
                   <strong className='text-gray-400 font-normal '>{item.name}</strong>
                 </div>
 
               ))}
-              <div className='flex items-center space-x-6 mt-10'>
+              <div className='flex items-center space-x-6 mt-6'>
+                <strong className='text-white text-[20px] leading-[24px] opacity-80'>Genres</strong>
                 {singleData?.genres ? singleData?.genres.slice(0, 3).map(item => (
                   <strong key={item.id} className='px-2 py-1 rounded-3xl block bg-[#00000033] text-gray-400 font-normal'>{item.name}</strong>
                 )) : ""}
               </div>
-              <p className='text-[16px] leading-[22px] text-white opacity-70 mt-8'>{singleData.overview}</p>
-              <div className='space-x-4'>
+              <p className='text-[16px] leading-[22px] text-white opacity-70 mt-3 line-clamp-5'>{singleData.overview}</p>
+              <div className='space-x-4 mt-3'>
                 <strong className='text-white text-[20px] leading-[24px] opacity-80'>Country</strong>
                 {singleData?.production_countries ? singleData?.production_countries.map(item => (
-                  <strong key={item.id} className='px-2 py-1 mt-5 inline-block rounded-3xl bg-[#00000033] text-gray-400 font-normal'>{item.name}</strong>
+                  <strong key={item.id} className='px-2 py-1 inline-block rounded-3xl bg-[#00000033] text-gray-400 font-normal'>{item.name}</strong>
                 )) : ""}
               </div>
-              <div className='space-x-4'>
+              <div className='space-x-4 '>
                 <strong className='text-white text-[20px] leading-[24px] opacity-80'>Spoken languages </strong>
                 {singleData?.spoken_languages ? singleData?.spoken_languages.map(item => (
-                  <strong key={item.id} className='px-2 py-1 mt-5 inline-block rounded-3xl bg-[#00000033] text-gray-400 font-normal'> {item.name}</strong>
+                  <strong key={item.id} className='px-2 py-1  inline-block rounded-3xl bg-[#00000033] text-gray-400 font-normal'> {item.name}</strong>
                 )) : ""}
               </div>
-              <p className='text-[16px] leading-[22px] text-white opacity-70 mt-4'>Realised Date {singleData.release_date}</p>
+              <p className='text-[16px] leading-[22px] text-white opacity-70 '>Realised Date {singleData.release_date}</p>
               <Link target='_blank' to={singleData.homepage} className=' text-[18px] leading-normal text-blue-500'>Full video</Link>
             </div>
             {videos.length ?

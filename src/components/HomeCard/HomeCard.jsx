@@ -55,12 +55,12 @@ export default function HomeCard({ item }) {
           modules={[Pagination]}
           className="mySwiper"
         >
-          {data.map(item => (
+          {data.length ? data.map(item => (
             <SwiperSlide key={item.id} onClick={() => navigate(`/movie/${item.id}`)} className='home-slide '>
               <img className='w-[190px] h-[255px] object-cover rounded-[12px]' src={`${IMG_URL}${item.poster_path}`} alt={item.title} width={190} height={255} />
               <h3 className='text-[18px] text-white mt-3 leading-[24px] font-semibold'>{item.title}</h3>
             </SwiperSlide>
-          ))}
+          )) : <SwiperSlide className='text-white text-[25px] text-center mx-auto'>No data</SwiperSlide>}
 
         </Swiper>
       </div>

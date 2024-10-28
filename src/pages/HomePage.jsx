@@ -44,9 +44,9 @@ function NowPlaying() {
 
     return (
         <>
-            <div>
+            <div >
                 <CustomSwiper data={data} />
-                <div className={`w-[1280px] mx-auto mt-[80px] mb-10 space-y-[100px] ${!data.length && "backdrop-blur-sm"}`}>
+                <div className={`w-[1280px] mx-auto mt-[80px] mb-10 space-y-[100px] `}>
                     {movieParts.map(item => <HomeCard key={item.id} item={item} />)}
                 </div>
             </div > 
